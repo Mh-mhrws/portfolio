@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamed Mahrous - Data Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1D9E75;
+    --green-light: #34D399;
+    --green-dim: rgba(29,158,117,0.12);
+    --green-border: rgba(29,158,117,0.25);
+    --dark: #080C10;
+    --dark2: #0F1419;
+    --dark3: #181E26;
+    --dark4: #1E2530;
+    --text: #E2E8F0;
+    --text-muted: #7C8A9A;
+    --text-dim: #4A5568;
+    --border: #1E2D3D;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 200;
+    background: rgba(8,12,16,0.9);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.9rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1.15rem; color:var(--green); letter-spacing:1px; }
+  .nav-links { display:flex; gap:2.5rem; list-style:none; }
+  .nav-links a { color:var(--text-muted); text-decoration:none; font-size:0.88rem; letter-spacing:0.3px; transition:color .2s; }
+  .nav-links a:hover { color:var(--green); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    align-items: center;
+    gap: 4rem;
+    padding: 8rem 5rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content:'';
+    position:absolute; top:-30%; right:10%;
+    width:700px; height:700px;
+    background: radial-gradient(circle, rgba(29,158,117,0.08) 0%, transparent 65%);
+    pointer-events:none;
+  }
+  .hero::after {
+    content:'';
+    position:absolute; bottom:-20%; left:-10%;
+    width:500px; height:500px;
+    background: radial-gradient(circle, rgba(29,158,117,0.05) 0%, transparent 65%);
+    pointer-events:none;
+  }
+
+  .hero-left { animation: fadeUp .8s ease both; }
+
+  .badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background: var(--green-dim);
+    border: 1px solid var(--green-border);
+    color: var(--green);
+    padding: 5px 14px; border-radius:20px;
+    font-size:0.78rem; font-weight:500; letter-spacing:0.5px;
+    margin-bottom: 1.75rem;
+  }
+  .badge-dot { width:7px; height:7px; background:var(--green); border-radius:50%; animation: pulse 2s infinite; }
+
+  h1 {
+    font-family:'Syne',sans-serif;
+    font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+    font-weight:800; line-height:1.05;
+    margin-bottom:1.25rem;
+    letter-spacing:-1px;
+  }
+  h1 .name-green { color:var(--green); }
+  h1 .title-line {
+    display:block;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-weight:400; color:var(--text-muted);
+    letter-spacing:2px; text-transform:uppercase;
+    margin-top:0.5rem;
+  }
+
+  .hero-desc { color:var(--text-muted); font-size:1.05rem; max-width:480px; margin-bottom:2.5rem; }
+
+  .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:3rem; }
+  .btn-p {
+    background:var(--green); color:#fff;
+    padding:11px 26px; border-radius:8px;
+    text-decoration:none; font-weight:500; font-size:0.9rem;
+    transition: all .2s;
+  }
+  .btn-p:hover { background:#159E6A; transform:translateY(-2px); box-shadow:0 8px 25px rgba(29,158,117,0.3); }
+  .btn-s {
+    background:transparent; color:var(--text);
+    border:1px solid var(--border);
+    padding:11px 26px; border-radius:8px;
+    text-decoration:none; font-weight:500; font-size:0.9rem;
+    transition: all .2s;
+  }
+  .btn-s:hover { border-color:var(--green); color:var(--green); transform:translateY(-2px); }
+
+  .stats-row { display:flex; gap:2.5rem; padding-top:2rem; border-top:1px solid var(--border); flex-wrap:wrap; }
+  .stat-n { font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; color:var(--green); line-height:1; }
+  .stat-l { font-size:0.78rem; color:var(--text-muted); margin-top:4px; letter-spacing:0.5px; }
+
+  /* Photo card */
+  .hero-right { animation: fadeUp .8s .2s ease both; display:flex; justify-content:center; }
+  .photo-card {
+    position:relative; width:320px;
+  }
+  .photo-frame {
+    width:100%; aspect-ratio:1;
+    border-radius:20px; overflow:hidden;
+    border:1px solid var(--border);
+    position:relative;
+  }
+  .photo-frame img { width:100%; height:100%; object-fit:cover; display:block; }
+  .photo-overlay {
+    position:absolute; inset:0;
+    background: linear-gradient(to bottom, transparent 60%, rgba(8,12,16,0.8));
+  }
+  .photo-badge {
+    position:absolute; bottom:-1px; left:50%; transform:translateX(-50%);
+    background:var(--dark2); border:1px solid var(--border);
+    border-radius:12px; padding:12px 20px;
+    text-align:center; white-space:nowrap;
+  }
+  .photo-badge-name { font-family:'Syne',sans-serif; font-weight:700; font-size:0.95rem; }
+  .photo-badge-role { font-size:0.75rem; color:var(--green); margin-top:2px; }
+
+  /* floating tag */
+  .float-tag {
+    position:absolute; top:20px; right:-15px;
+    background:var(--dark3); border:1px solid var(--green-border);
+    border-radius:10px; padding:10px 14px;
+    font-size:0.78rem; color:var(--green); font-weight:500;
+    box-shadow:0 8px 24px rgba(0,0,0,0.4);
+  }
+
+  /* ── SECTIONS ── */
+  section { padding:5.5rem 5rem; }
+  .sec-tag { font-size:0.72rem; font-weight:600; letter-spacing:3px; color:var(--green); text-transform:uppercase; margin-bottom:0.4rem; }
+  .sec-title { font-family:'Syne',sans-serif; font-size:2rem; font-weight:700; margin-bottom:0.75rem; }
+  .sec-sub { color:var(--text-muted); font-size:0.95rem; max-width:500px; margin-bottom:3rem; }
+
+  /* ── SKILLS ── */
+  .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.25rem; }
+  .sk-card {
+    background:var(--dark2); border:1px solid var(--border);
+    border-radius:14px; padding:1.5rem;
+    transition: all .3s; position:relative; overflow:hidden;
+  }
+  .sk-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,var(--green),var(--green-light));
+    transform:scaleX(0); transform-origin:left; transition:transform .3s;
+  }
+  .sk-card:hover { border-color:var(--green-border); transform:translateY(-4px); }
+  .sk-card:hover::before { transform:scaleX(1); }
+  .sk-icon { font-size:2rem; margin-bottom:0.75rem; }
+  .sk-name { font-family:'Syne',sans-serif; font-weight:700; font-size:1rem; margin-bottom:0.4rem; }
+  .sk-desc { font-size:0.82rem; color:var(--text-muted); margin-bottom:1.1rem; line-height:1.6; }
+  .sk-topics { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:1rem; }
+  .sk-topic { background:var(--green-dim); color:var(--green); font-size:0.7rem; padding:2px 8px; border-radius:20px; }
+  .sk-bar-wrap { background:var(--dark4); border-radius:20px; height:3px; }
+  .sk-bar { height:100%; border-radius:20px; background:linear-gradient(90deg,var(--green),var(--green-light)); }
+  .sk-level { font-size:0.7rem; color:var(--text-dim); margin-top:5px; }
+
+  /* ── PROJECTS ── */
+  .proj-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:1.5rem; }
+  .proj-card {
+    background:var(--dark2); border:1px solid var(--border);
+    border-radius:16px; overflow:hidden; transition:all .3s;
+  }
+  .proj-card:hover { border-color:var(--green-border); transform:translateY(-5px); box-shadow:0 20px 40px rgba(0,0,0,0.4); }
+
+  .proj-top {
+    padding:1.75rem 1.75rem 1.5rem;
+    background:linear-gradient(135deg,rgba(29,158,117,0.12),rgba(29,158,117,0.02));
+    border-bottom:1px solid var(--border);
+  }
+  .proj-num { font-family:'Syne',sans-serif; font-size:0.7rem; font-weight:700; color:var(--green); letter-spacing:2px; margin-bottom:0.75rem; }
+  .proj-head { display:flex; align-items:flex-start; gap:1rem; }
+  .proj-emoji { font-size:2.2rem; line-height:1; }
+  .proj-title { font-family:'Syne',sans-serif; font-weight:700; font-size:1.1rem; margin-bottom:4px; }
+  .proj-sub { font-size:0.78rem; color:var(--green); }
+
+  .proj-body { padding:1.5rem 1.75rem; }
+  .proj-desc { font-size:0.88rem; color:var(--text-muted); margin-bottom:1.25rem; line-height:1.7; }
+
+  .insights-title { font-size:0.72rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-dim); margin-bottom:0.6rem; }
+  .insight-item { display:flex; align-items:center; gap:10px; font-size:0.84rem; padding:5px 0; color:var(--text-muted); }
+  .insight-dot { width:5px; height:5px; background:var(--green); border-radius:50%; flex-shrink:0; }
+
+  .proj-footer { padding:1.25rem 1.75rem; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; gap:6px; }
+  .ptag { background:var(--dark3); border:1px solid var(--border); font-size:0.73rem; color:var(--text-muted); padding:3px 10px; border-radius:6px; }
+
+  /* ── WHAT I LEARNED ── */
+  .learned-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; }
+  .learn-card {
+    background:var(--dark2); border:1px solid var(--border);
+    border-radius:12px; padding:1.25rem;
+    transition:all .3s;
+  }
+  .learn-card:hover { border-color:var(--green-border); }
+  .learn-icon { font-size:1.5rem; margin-bottom:0.5rem; }
+  .learn-name { font-family:'Syne',sans-serif; font-weight:700; font-size:0.9rem; margin-bottom:0.4rem; }
+  .learn-items { font-size:0.78rem; color:var(--text-muted); line-height:1.8; }
+
+  /* ── EXPERIENCE ── */
+  .exp-list { display:flex; flex-direction:column; gap:0; }
+  .exp-item {
+    display:grid; grid-template-columns:180px 1fr;
+    gap:2rem; padding:2rem 0;
+    border-bottom:1px solid var(--border);
+  }
+  .exp-item:last-child { border-bottom:none; }
+  .exp-date { font-size:0.8rem; color:var(--green); font-weight:500; padding-top:3px; }
+  .exp-title { font-family:'Syne',sans-serif; font-weight:700; font-size:1rem; margin-bottom:3px; }
+  .exp-company { font-size:0.85rem; color:var(--text-muted); margin-bottom:0.6rem; }
+  .exp-desc { font-size:0.83rem; color:var(--text-dim); line-height:1.7; }
+
+  /* ── CONTACT ── */
+  .contact-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; }
+  .con-card {
+    background:var(--dark2); border:1px solid var(--border);
+    border-radius:12px; padding:1.5rem; text-align:center;
+    text-decoration:none; color:var(--text);
+    transition:all .3s;
+  }
+  .con-card:hover { border-color:var(--green-border); transform:translateY(-4px); }
+  .con-icon { font-size:1.75rem; margin-bottom:0.6rem; }
+  .con-label { font-size:0.72rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px; margin-bottom:0.3rem; }
+  .con-val { font-size:0.85rem; font-weight:500; word-break:break-all; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align:center; padding:2rem;
+    border-top:1px solid var(--border);
+    font-size:0.82rem; color:var(--text-dim);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(28px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:.4; transform:scale(.8); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:900px) {
+    .hero { grid-template-columns:1fr; padding:7rem 2rem 3rem; }
+    .hero-right { display:none; }
+    section { padding:3.5rem 2rem; }
+    nav { padding:.9rem 1.5rem; }
+    .nav-links { display:none; }
+    .exp-item { grid-template-columns:1fr; gap:.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">MM.</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#learned">What I Learned</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="badge"><span class="badge-dot"></span> Available for Freelance · Khamsat & Mostaql</div>
+    <h1>
+      Mohamed<br>
+      <span class="name-green">Mahrous</span>
+      <span class="title-line">Data Analyst</span>
+    </h1>
+    <p class="hero-desc">Turning raw data into clear business insights. Accounting background + Data Analysis skills = real value for your business.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-p">View My Work</a>
+      <a href="#contact" class="btn-s">Hire Me</a>
+    </div>
+    <div class="stats-row">
+      <div><div class="stat-n">2</div><div class="stat-l">Projects</div></div>
+      <div><div class="stat-n">9,994</div><div class="stat-l">Rows Analyzed</div></div>
+      <div><div class="stat-n">5+</div><div class="stat-l">Years Data Exp.</div></div>
+      <div><div class="stat-n">3</div><div class="stat-l">Tools</div></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="photo-card">
+      <div class="photo-frame">
+        <img src="1770757019646.jpg" alt="Mohamed Mahrous">
+        <div class="photo-overlay"></div>
+      </div>
+      <div class="photo-badge">
+        <div class="photo-badge-name">Mohamed Mahrous</div>
+        <div class="photo-badge-role">Data Analyst · Mansoura, Egypt</div>
+      </div>
+      <div class="float-tag">📊 Excel · Python · Power BI</div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills" style="background:var(--dark2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="sec-tag">What I Use</div>
+  <h2 class="sec-title">Skills & Tools</h2>
+  <p class="sec-sub">A practical toolkit for real data analysis projects.</p>
+  <div class="skills-grid">
+    <div class="sk-card">
+      <div class="sk-icon">📊</div>
+      <div class="sk-name">Microsoft Excel</div>
+      <div class="sk-desc">Full data analysis workflow from raw data to polished dashboards.</div>
+      <div class="sk-topics">
+        <span class="sk-topic">Pivot Tables</span>
+        <span class="sk-topic">VLOOKUP</span>
+        <span class="sk-topic">SUMIF</span>
+        <span class="sk-topic">Charts</span>
+        <span class="sk-topic">Dashboard</span>
+      </div>
+      <div class="sk-bar-wrap"><div class="sk-bar" style="width:90%"></div></div>
+      <div class="sk-level">Advanced · 90%</div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-icon">🐍</div>
+      <div class="sk-name">Python & Pandas</div>
+      <div class="sk-desc">Data manipulation, analysis and visualization with Python libraries.</div>
+      <div class="sk-topics">
+        <span class="sk-topic">Pandas</span>
+        <span class="sk-topic">Matplotlib</span>
+        <span class="sk-topic">groupby</span>
+        <span class="sk-topic">Data Cleaning</span>
+      </div>
+      <div class="sk-bar-wrap"><div class="sk-bar" style="width:65%"></div></div>
+      <div class="sk-level">Intermediate · 65%</div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-icon">📈</div>
+      <div class="sk-name">Power BI</div>
+      <div class="sk-desc">Interactive dashboards and business intelligence reports.</div>
+      <div class="sk-topics">
+        <span class="sk-topic">Dashboards</span>
+        <span class="sk-topic">Visualization</span>
+        <span class="sk-topic">DAX</span>
+      </div>
+      <div class="sk-bar-wrap"><div class="sk-bar" style="width:40%"></div></div>
+      <div class="sk-level">Learning · 40%</div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-icon">📐</div>
+      <div class="sk-name">Statistics</div>
+      <div class="sk-desc">Statistical thinking for better data interpretation and insights.</div>
+      <div class="sk-topics">
+        <span class="sk-topic">Mean/Median</span>
+        <span class="sk-topic">Std Deviation</span>
+        <span class="sk-topic">Distribution</span>
+      </div>
+      <div class="sk-bar-wrap"><div class="sk-bar" style="width:60%"></div></div>
+      <div class="sk-level">Intermediate · 60%</div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-icon">🗄️</div>
+      <div class="sk-name">Oracle & Odoo ERP</div>
+      <div class="sk-desc">Enterprise data management, operational tracking and reporting.</div>
+      <div class="sk-topics">
+        <span class="sk-topic">Oracle ERP</span>
+        <span class="sk-topic">Odoo</span>
+        <span class="sk-topic">Reports</span>
+      </div>
+      <div class="sk-bar-wrap"><div class="sk-bar" style="width:75%"></div></div>
+      <div class="sk-level">Advanced · 75%</div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-icon">💼</div>
+      <div class="sk-name">Accounting & Finance</div>
+      <div class="sk-desc">Strong business foundation that makes data insights more meaningful.</div>
+      <div class="sk-topics">
+        <span class="sk-topic">Financial Analysis</span>
+        <span class="sk-topic">Reporting</span>
+        <span class="sk-topic">PFA</span>
+      </div>
+      <div class="sk-bar-wrap"><div class="sk-bar" style="width:85%"></div></div>
+      <div class="sk-level">Advanced · 85%</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-tag">My Work</div>
+  <h2 class="sec-title">Projects</h2>
+  <p class="sec-sub">Real datasets. Real insights. Real value.</p>
+  <div class="proj-grid">
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <div class="proj-num">PROJECT 01</div>
+        <div class="proj-head">
+          <div class="proj-emoji">🏪</div>
+          <div>
+            <div class="proj-title">Superstore Sales Dashboard</div>
+            <div class="proj-sub">Excel · Pivot Tables · Charts</div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-body">
+        <p class="proj-desc">Full analysis of 9,994 sales records across 4 US regions and 3 product categories. Built a complete interactive Excel dashboard with Pivot Tables, Charts, and Slicers.</p>
+        <div class="insights-title">Key Insights</div>
+        <div class="insight-item"><span class="insight-dot"></span>West Region leads with $725K in total sales</div>
+        <div class="insight-item"><span class="insight-dot"></span>Technology is top category at $836K revenue</div>
+        <div class="insight-item"><span class="insight-dot"></span>November peaks due to Black Friday effect</div>
+        <div class="insight-item"><span class="insight-dot"></span>Total revenue $2.3M with $286K profit</div>
+      </div>
+      <div class="proj-footer">
+        <span class="ptag">Excel</span>
+        <span class="ptag">Pivot Tables</span>
+        <span class="ptag">Dashboard</span>
+        <span class="ptag">Data Cleaning</span>
+        <span class="ptag">Charts</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <div class="proj-num">PROJECT 02</div>
+        <div class="proj-head">
+          <div class="proj-emoji">🐍</div>
+          <div>
+            <div class="proj-title">Superstore Sales Analysis</div>
+            <div class="proj-sub">Python · Pandas · Matplotlib</div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-body">
+        <p class="proj-desc">Same 9,994-row dataset re-analyzed using Python. Loaded with Pandas, performed groupby analysis by Region and Category, and built Matplotlib visualizations.</p>
+        <div class="insights-title">Key Insights</div>
+        <div class="insight-item"><span class="insight-dot"></span>Verified all Excel results with Python code</div>
+        <div class="insight-item"><span class="insight-dot"></span>Monthly sales trend chart across all years</div>
+        <div class="insight-item"><span class="insight-dot"></span>Region & Category revenue breakdown</div>
+        <div class="insight-item"><span class="insight-dot"></span>Dataset had zero missing values — clean data</div>
+      </div>
+      <div class="proj-footer">
+        <span class="ptag">Python</span>
+        <span class="ptag">Pandas</span>
+        <span class="ptag">Matplotlib</span>
+        <span class="ptag">Google Colab</span>
+        <span class="ptag">EDA</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHAT I LEARNED -->
+<section id="learned" style="background:var(--dark2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="sec-tag">My Journey</div>
+  <h2 class="sec-title">What I Learned</h2>
+  <p class="sec-sub">A structured learning path from zero to job-ready.</p>
+  <div class="learned-grid">
+    <div class="learn-card">
+      <div class="learn-icon">📊</div>
+      <div class="learn-name">Excel Mastery</div>
+      <div class="learn-items">SUM, AVERAGE, IF<br>VLOOKUP, COUNTIF<br>Pivot Tables<br>Charts & Dashboards<br>Data Cleaning</div>
+    </div>
+    <div class="learn-card">
+      <div class="learn-icon">🐍</div>
+      <div class="learn-name">Python Basics</div>
+      <div class="learn-items">Variables & Data Types<br>Lists & Loops<br>IF Conditions<br>Functions</div>
+    </div>
+    <div class="learn-card">
+      <div class="learn-icon">🐼</div>
+      <div class="learn-name">Pandas</div>
+      <div class="learn-items">DataFrames<br>groupby & filter<br>sort_values<br>describe()<br>isnull()</div>
+    </div>
+    <div class="learn-card">
+      <div class="learn-icon">📉</div>
+      <div class="learn-name">Matplotlib</div>
+      <div class="learn-items">Bar Charts<br>Line Charts<br>Pie Charts<br>Custom Colors<br>Titles & Labels</div>
+    </div>
+    <div class="learn-card">
+      <div class="learn-icon">📐</div>
+      <div class="learn-name">Statistics</div>
+      <div class="learn-items">Mean, Median, Mode<br>Std Deviation<br>Distribution<br>Outliers</div>
+    </div>
+    <div class="learn-card">
+      <div class="learn-icon">🧹</div>
+      <div class="learn-name">Data Cleaning</div>
+      <div class="learn-items">Remove Duplicates<br>Handle Nulls<br>TRIM & Text Fix<br>Type Conversion</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-tag">Background</div>
+  <h2 class="sec-title">Experience & Education</h2>
+  <p class="sec-sub">5+ years working with data in real business environments.</p>
+  <div class="exp-list">
+    <div class="exp-item">
+      <div class="exp-date">March 2026 – Present</div>
+      <div>
+        <div class="exp-title">Project Coordinator</div>
+        <div class="exp-company">Sesco Trans Logistics</div>
+        <div class="exp-desc">Oracle ERP for project coordination and data management. Preparing operational reports, tracking expenses, resources, and equipment using Microsoft Office.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-date">Aug 2023 – Feb 2026</div>
+      <div>
+        <div class="exp-title">Data Entry Specialist</div>
+        <div class="exp-company">Elwaad Office – Sinbellawein</div>
+        <div class="exp-desc">Advanced Microsoft Office skills, data management and organization with high attention to detail. 5 years total data entry experience.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-date">2019 – 2025</div>
+      <div>
+        <div class="exp-title">Bachelor of Commerce – Accounting</div>
+        <div class="exp-company">Mansoura University</div>
+        <div class="exp-desc">Strong foundation in financial analysis, data interpretation, and business operations. PFA certified.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--dark2); border-top:1px solid var(--border);">
+  <div class="sec-tag">Let's Work</div>
+  <h2 class="sec-title">Get in Touch</h2>
+  <p class="sec-sub">Available for freelance data analysis projects. Fast delivery, clean results.</p>
+  <div class="contact-grid">
+    <a href="mailto:mhrwsmhmd100@gmail.com" class="con-card">
+      <div class="con-icon">✉️</div>
+      <div class="con-label">Email</div>
+      <div class="con-val">mhrwsmhmd100@gmail.com</div>
+    </a>
+    <a href="https://www.linkedin.com/in/mohamed-mahrous-023b8a35b" target="_blank" class="con-card">
+      <div class="con-icon">💼</div>
+      <div class="con-label">LinkedIn</div>
+      <div class="con-val">Mohamed Mahrous</div>
+    </a>
+    <a href="tel:+201032720236" class="con-card">
+      <div class="con-icon">📱</div>
+      <div class="con-label">Phone</div>
+      <div class="con-val">+20 103 272 0236</div>
+    </a>
+    <div class="con-card">
+      <div class="con-icon">📍</div>
+      <div class="con-label">Location</div>
+      <div class="con-val">Mansoura, Egypt</div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Mohamed Mahrous · Data Analyst · Built with 💚</footer>
+
+</body>
+</html>
